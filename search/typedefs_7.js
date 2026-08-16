@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['recursive_5fmutex_5ft_2037',['recursive_mutex_t',['../group__mutex.html#gaaa26fc3b4f65c4764da7d9b2a7495cc2',1,'mutex.h']]],
-  ['repeating_5ftimer_5fcallback_5ft_2038',['repeating_timer_callback_t',['../group__repeating__timer.html#ga028fe2b7d00c1927c24131aae7c375f3',1,'time.h']]],
-  ['resus_5fcallback_5ft_2039',['resus_callback_t',['../group__hardware__clocks.html#ga60fddc9bfe13c979c8e3a777d0d89037',1,'clocks.h']]],
-  ['rtc_5fcallback_5ft_2040',['rtc_callback_t',['../group__hardware__rtc.html#ga05a9e12c70c56e6e2a9869d0682045d1',1,'rtc.h']]]
+  ['i2c_5fslave_5fevent_5ft_0',['i2c_slave_event_t',['../group__pico__i2c__slave.html#ga8d4821831a9a533b701eca1016021c33',1,'i2c_slave.h']]],
+  ['i2c_5fslave_5fhandler_5ft_1',['i2c_slave_handler_t',['../group__pico__i2c__slave.html#gaf1bb7bb1e79c309b290bf0e8ccd57dff',1,'i2c_slave.h']]],
+  ['irq_5fhandler_5ft_2',['irq_handler_t',['../group__hardware__irq.html#ga8478ee26cc144e947ccd75b0169059a6',1,'irq.h']]],
+  ['irq_5fnum_5ft_3',['irq_num_t',['../group__hardware__irq.html#gaf30862f51b5994ffd5863176a185d137',1,'intctrl.h']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['low_5fpriority_5firq_5fhandler_5fpriority_2012',['low_priority_irq_handler_priority',['../structasync__context__threadsafe__background__config.html#aaeed113746710afc683e1495409d66d8',1,'async_context_threadsafe_background_config']]]
+  ['group_5fid_0',['group_id',['../struct__binary__info__named__group.html#a43185858c6d7079e4d054f0d95b16b6a',1,'_binary_info_named_group']]],
+  ['group_5ftag_1',['group_tag',['../struct__binary__info__named__group.html#a74fe65d4484bd991d15ee24f39fce127',1,'_binary_info_named_group']]]
 ];

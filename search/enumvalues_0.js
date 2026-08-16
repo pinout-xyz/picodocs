@@ -1,13 +1,4 @@
 var searchData=
 [
-  ['clk_5fadc_2063',['clk_adc',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133afb4bd0bf16d8916c4cb56fa77b4f0b0d',1,'clocks.h']]],
-  ['clk_5fgpout0_2064',['clk_gpout0',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133a8c35a604478e413afed2b3c558df5c64',1,'clocks.h']]],
-  ['clk_5fgpout1_2065',['clk_gpout1',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133aa1515365ea7f6fc7815d71ac584fcc65',1,'clocks.h']]],
-  ['clk_5fgpout2_2066',['clk_gpout2',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133a913a8ae975120951e7d5c5c3df66f20f',1,'clocks.h']]],
-  ['clk_5fgpout3_2067',['clk_gpout3',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133ad95941e57d81620130a1b108e0f57b51',1,'clocks.h']]],
-  ['clk_5fperi_2068',['clk_peri',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133a917c020907b42e257410e885822f6c71',1,'clocks.h']]],
-  ['clk_5fref_2069',['clk_ref',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133abba6c078e66ad1a30d5b2b15b62093c4',1,'clocks.h']]],
-  ['clk_5frtc_2070',['clk_rtc',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133a7af7fc21d0d48fc06d9476ebb7236e16',1,'clocks.h']]],
-  ['clk_5fsys_2071',['clk_sys',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133ac1ad7b83e348265a82c8d234489d62ab',1,'clocks.h']]],
-  ['clk_5fusb_2072',['clk_usb',['../group__hardware__clocks.html#gga7ac25aa331f7c2624795b6088f87d133acfa6bf0bcaef61805201373db18ed115',1,'clocks.h']]]
+  ['adc_5firq_5ffifo_0',['ADC_IRQ_FIFO',['../group__hardware__irq.html#ggaf4bf6b287c1a8445fce49ccaa711b3c3a80d34861619c6034c897e829aea93ed4',1,'intctrl.h']]]
 ];

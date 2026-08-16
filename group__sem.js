@@ -1,5 +1,7 @@
 var group__sem =
 [
+    [ "semaphore", "structsemaphore.html", null ],
+    [ "semaphore_t", "group__sem.html#ga7faa1c561b3d822cda7bb84f27ee9448", null ],
     [ "sem_acquire_block_until", "group__sem.html#ga4410f17fc2f35b91e5bcfaf18bcf26ae", null ],
     [ "sem_acquire_blocking", "group__sem.html#gaefa22667355703497ae883f68a87aacf", null ],
     [ "sem_acquire_timeout_ms", "group__sem.html#ga38275bfc4c00e5039028f58860709610", null ],

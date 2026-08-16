@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['work_5fpending_2022',['work_pending',['../structasync__when__pending__worker.html#a71770fa6b79959b936ca07f36c3f555a',1,'async_when_pending_worker']]]
+  ['origin_0',['origin',['../structpio__program.html#a1a7fc4f6338f56b8dbd3065db04766dd',1,'pio_program']]],
+  ['out_5fchars_1',['out_chars',['../structstdio__driver.html#a1afbcb532ec01f08b9c29cc9945f4f05',1,'stdio_driver']]],
+  ['out_5fflush_2',['out_flush',['../structstdio__driver.html#a91e48f32e9ec7e6bac79f665728f2159',1,'stdio_driver']]]
 ];

@@ -1,4 +1,0 @@
-var dir_96f5218132b8ddb25f43d5d593db4268 =
-[
-    [ "hardware", "dir_c2ea06de307148d54c97276336432728.html", "dir_c2ea06de307148d54c97276336432728" ]
-];

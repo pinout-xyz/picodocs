@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['rand_2eh_1269',['rand.h',['../rand_8h.html',1,'']]],
-  ['resets_2eh_1270',['resets.h',['../rp2__common_2hardware__resets_2include_2hardware_2resets_8h.html',1,'']]],
-  ['rtc_2eh_1271',['rtc.h',['../rp2__common_2hardware__rtc_2include_2hardware_2rtc_8h.html',1,'']]],
-  ['runtime_2eh_1272',['runtime.h',['../runtime_8h.html',1,'']]]
+  ['rand_2eh_0',['rand.h',['../rand_8h.html',1,'']]],
+  ['resets_2eh_1',['resets.h',['../rp2__common_2hardware__resets_2include_2hardware_2resets_8h.html',1,'']]],
+  ['rosc_2eh_2',['rosc.h',['../rp2__common_2hardware__rosc_2include_2hardware_2rosc_8h.html',1,'']]],
+  ['rtc_2eh_3',['rtc.h',['../rp2__common_2hardware__rtc_2include_2hardware_2rtc_8h.html',1,'']]],
+  ['runtime_2eh_4',['runtime.h',['../runtime_8h.html',1,'']]],
+  ['runtime_5finit_2eh_5',['runtime_init.h',['../runtime__init_8h.html',1,'']]]
 ];

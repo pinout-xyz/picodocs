@@ -1,8 +1,0 @@
-digraph "pico_standard_link" {
-  compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
-  dir_f984b8d793411a56b4e14d1508e49bdd [shape=box, label="pico_standard_link", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_f984b8d793411a56b4e14d1508e49bdd.html"];
-  dir_3dab16ea41ea245df7c2e3d74b6863f3 [shape=box label="pico_binary_info" fillcolor="white" style="filled" color="red" URL="dir_3dab16ea41ea245df7c2e3d74b6863f3.html"];
-  dir_f984b8d793411a56b4e14d1508e49bdd->dir_3dab16ea41ea245df7c2e3d74b6863f3 [headlabel="1", labeldistance=1.5 headhref="dir_000045_000013.html"];
-}

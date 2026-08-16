@@ -1,11 +1,14 @@
-digraph "pico_unique_id/include/pico" {
+digraph "include/pico"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
   subgraph clusterdir_8d7ef1a1a35446b896079b99965c949a {
-    graph [ bgcolor="#ddddee", pencolor="black", label="include" fontname="Helvetica", fontsize="10", URL="dir_8d7ef1a1a35446b896079b99965c949a.html"]
-  dir_867f63e47c45a57d661ac896a839d642 [shape=box, label="pico", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_867f63e47c45a57d661ac896a839d642.html"];
+    graph [ bgcolor="#f9d4db", pencolor="grey25", label="include", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_8d7ef1a1a35446b896079b99965c949a.html",tooltip=""]
+  dir_867f63e47c45a57d661ac896a839d642 [label="pico", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_867f63e47c45a57d661ac896a839d642.html",tooltip=""];
   }
-  dir_ee4ba4c32933fd9d1c9bce216e67756d [shape=box label="pico_base" fillcolor="white" style="filled" color="red" URL="dir_ee4ba4c32933fd9d1c9bce216e67756d.html"];
-  dir_867f63e47c45a57d661ac896a839d642->dir_ee4ba4c32933fd9d1c9bce216e67756d [headlabel="1", labeldistance=1.5 headhref="dir_000201_000007.html"];
+  dir_d33924d076471b85b24f43e84b5c33ab [label="include", fillcolor="#f9d4db", color="red", style="filled", URL="dir_d33924d076471b85b24f43e84b5c33ab.html",tooltip=""];
+  dir_867f63e47c45a57d661ac896a839d642->dir_d33924d076471b85b24f43e84b5c33ab [headlabel="1", labeldistance=1.5 headhref="dir_000176_000050.html" href="dir_000176_000050.html" color="steelblue1" fontcolor="steelblue1"];
 }

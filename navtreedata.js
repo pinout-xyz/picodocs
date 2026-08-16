@@ -1,29 +1,31 @@
 /*
-@licstart  The following is the entire license notice for the
-JavaScript code in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+ The MIT License (MIT)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+ Copyright (C) 1997-2020 by Dimitri van Heesch
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
-@licend  The above is the entire license notice
-for the JavaScript code in this file
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var NAVTREE =
 [
   [ "Raspberry Pi Pico SDK", "index.html", [
-    [ "API Documentation", "modules.html", "modules" ],
+    [ "API Documentation", "topics.html", "topics" ],
     [ "Examples", "examples_page.html", null ],
     [ "Additional Documentation", "weblinks_page.html", [
       [ "Raspberry Pi Pico Datasheet", "^https://rptl.io/pico-datasheet", null ],
@@ -44,41 +46,19 @@ var NAVTREE =
       [ "Pico Extras on GitHub", "^https://github.com/raspberrypi/pico-extras", null ],
       [ "Pico Playground on GitHub", "^https://github.com/raspberrypi/pico-playground", null ],
       [ "Pico Bootrom on GitHub", "^https://github.com/raspberrypi/pico-bootrom", null ]
-    ] ],
-    [ "Data Structures", "annotated.html", "annotated" ],
-    [ "Data Structure Index", "classes.html", null ],
-    [ "Data Fields", "functions.html", [
-      [ "All", "functions.html", null ],
-      [ "Variables", "functions_vars.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Globals", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"address__mapped_8h.html",
-"dir_a472048065eebb82e1df7738a8c93caa.html",
-"group__channel__config.html#ga1acca0d1b5a1793c78dc0daec8a5fffc",
-"group__hardware__dma.html#gac50200739b88a2fd52316f4150533035",
-"group__hardware__interp.html#ga8b6dfe0f72bb43788ff10d25d6b17403",
-"group__hardware__pwm.html#ga94782fc53adb07a3594ae0939d9a2e3e",
-"group__hardware__watchdog.html#ga329b748919954f8b48c58049115a5c54",
-"group__pico__cyw43__arch.html#gae1237b71f7793ba603a4b39da37c7a71",
-"group__queue.html#ga0aa8e36b5c51158d836e16c5be2b9925",
-"platform_8h.html#a52d1d4e9d28da61a7b6c78c5b583ff3b",
-"structadc__hw__t.html#ad8e8d6ca95e7e8ef609ea6ca1189ba19",
-"structinterp__hw__t.html",
-"structspi__hw__t.html#ab5cf4c33574200e27cbbc7fad107c6c6"
+"btstack__hci__transport__cyw43_8h.html",
+"group__hardware__dma.html#ga355720e02713c7324b540efc6f632366",
+"group__hardware__interp.html#ga25479c3fa9137c52fc22c1c9a796ab93",
+"group__hardware__resets.html#gga75518d371584c608bc559b6b6b002455a6800819301785457c9ef6a79d2a44d23",
+"group__mutex.html#ga6ce3ca26cbce71a3e29396264e00e253",
+"group__pico__float.html#ga61f4413f2063e71381cad9920302b765",
+"group__sleep.html#gae617a6842d4f3a192064c4354b88fcff"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
