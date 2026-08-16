@@ -6,36 +6,43 @@ on:
   release:
     types: [created]
 
-env:
-  SDK_VERSION: "2.3.0"
-
 jobs:
   build:
-    name: Build Docs
+    name: Build ${{matrix.sdk_version}} Docs
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk_version:
+          - "2.3.0"
+          - "2.2.0"
+          - "2.1.1"
+          - "2.1.0"
+          - "2.0.0"
+          - "1.5.1"
     steps:
     - name: Install Deps
-      if: runner.os == 'Linux'
       run: |
-        sudo apt update && sudo apt install gcc-arm-none-eabi doxygen
-  
-    - name: Checkout PicoDocs
-      uses: actions/checkout@v7
-      with:
-        path: picodocs
+        sudo apt update && sudo apt install -y gcc-arm-none-eabi doxygen
 
     - name: Checkout Pico SDK
       uses: actions/checkout@v7
       with:
         repository: raspberrypi/pico-sdk
-        ref: ${{env.SDK_VERSION}}
+        ref: ${{matrix.sdk_version}}
         path: pico-sdk
-  
+
     - name: Configure Pico SDK
       shell: bash
       working-directory: pico-sdk
       run: |
         cmake -S . -B build -DPICO_BUILD_DOCS=1
+
+    - name: Disable Doxygen Dark Mode
+      shell: bash
+      working-directory: pico-sdk
+      run: |
+        echo "HTML_COLORSTYLE = LIGHT" >> build/docs/Doxyfile
 
     - name: Build Pico SDK Docs
       shell: bash
@@ -46,12 +53,59 @@ jobs:
     - name: Upload As Artifact
       uses: actions/upload-artifact@v7
       with:
-        name: pico-sdk-${{env.SDK_VERSION}}-docs
+        name: pico-sdk-${{matrix.sdk_version}}-docs
         path: pico-sdk/build/docs/doxygen/html
+
+  publish:
+    name: Publish Docs
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout PicoDocs
+      uses: actions/checkout@v7
+
+    - name: Download Docs
+      uses: actions/download-artifact@v8
+      with:
+        path: artifacts
+        pattern: pico-sdk-*-docs
+
+    - name: Assemble Site
+      shell: bash
+      run: |
+        versions=$(ls artifacts | sed 's/^pico-sdk-//; s/-docs$//' | sort -Vr)
+        latest=$(echo "$versions" | head -n 1)
+        mkdir -p site
+        cp -r "artifacts/pico-sdk-$latest-docs/." site/
+        for version in $versions; do
+          cp -r "artifacts/pico-sdk-$version-docs" "site/$version"
+        done
+        {
+          echo '<!DOCTYPE html>'
+          echo '<html lang="en">'
+          echo '<head>'
+          echo '<meta charset="utf-8">'
+          echo '<meta name="viewport" content="width=device-width, initial-scale=1">'
+          echo '<title>Pico SDK Documentation</title>'
+          echo '</head>'
+          echo '<body>'
+          echo '<h1>Pico SDK Documentation</h1>'
+          echo '<ul>'
+          for version in $versions; do
+            if [ "$version" = "$latest" ]; then
+              echo "<li><a href=\"/$version/\">$version</a> (latest, also at <a href=\"/\">/</a>)</li>"
+            else
+              echo "<li><a href=\"/$version/\">$version</a></li>"
+            fi
+          done
+          echo '</ul>'
+          echo '</body>'
+          echo '</html>'
+        } > site/versions.html
 
     - name: Publish To Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: pico-sdk/build/docs/doxygen/html
+          publish_dir: site
           cname: picodocs.pinout.xyz
