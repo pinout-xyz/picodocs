@@ -1,0 +1,16 @@
+digraph "pico_divider/include/pico"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_8f4707ebee4f54ea59a6ed05ab66de03 {
+    graph [ bgcolor="#f9d4db", pencolor="grey50", label="include", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_8f4707ebee4f54ea59a6ed05ab66de03.html",tooltip=""]
+  dir_021f499e9b19b52d4d6edae2d4d01649 [label="pico", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_021f499e9b19b52d4d6edae2d4d01649.html",tooltip=""];
+  }
+  dir_9060f22c16ad0d03432df0abd8acf357 [label="hardware_divider", fillcolor="#f9d4db", color="red", style="filled", URL="dir_9060f22c16ad0d03432df0abd8acf357.html",tooltip=""];
+  dir_ee4ba4c32933fd9d1c9bce216e67756d [label="pico_base", fillcolor="#f9d4db", color="red", style="filled", URL="dir_ee4ba4c32933fd9d1c9bce216e67756d.html",tooltip=""];
+  dir_021f499e9b19b52d4d6edae2d4d01649->dir_9060f22c16ad0d03432df0abd8acf357 [headlabel="1", labeldistance=1.5 headhref="dir_000129_000044.html" href="dir_000129_000044.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_021f499e9b19b52d4d6edae2d4d01649->dir_ee4ba4c32933fd9d1c9bce216e67756d [headlabel="1", labeldistance=1.5 headhref="dir_000129_000160.html" href="dir_000129_000160.html" color="steelblue1" fontcolor="steelblue1"];
+}

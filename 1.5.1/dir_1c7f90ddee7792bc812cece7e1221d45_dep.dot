@@ -1,0 +1,18 @@
+digraph "pico_i2c_slave"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_1c7f90ddee7792bc812cece7e1221d45 {
+    graph [ bgcolor="#f9d4db", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_1c7f90ddee7792bc812cece7e1221d45.html",tooltip=""]
+    dir_1c7f90ddee7792bc812cece7e1221d45 [shape=plaintext, label="pico_i2c_slave"];
+  dir_e639b115481453e77349016575e01b43 [label="include", fillcolor="#e73a57", color="grey25", style="filled", URL="dir_e639b115481453e77349016575e01b43.html",tooltip=""];
+  }
+  dir_530b96b5c656eb30479af34adde28e10 [label="hardware_i2c", fillcolor="#f9d4db", color="red", style="filled", URL="dir_530b96b5c656eb30479af34adde28e10.html",tooltip=""];
+  dir_e78bca571b31016e4658788ba82f9ab9 [label="hardware_irq", fillcolor="#f9d4db", color="red", style="filled", URL="dir_e78bca571b31016e4658788ba82f9ab9.html",tooltip=""];
+  dir_1c7f90ddee7792bc812cece7e1221d45->dir_e639b115481453e77349016575e01b43 [headlabel="1", labeldistance=1.5 headhref="dir_000176_000111.html" href="dir_000176_000111.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_1c7f90ddee7792bc812cece7e1221d45->dir_e78bca571b31016e4658788ba82f9ab9 [headlabel="1", labeldistance=1.5 headhref="dir_000176_000051.html" href="dir_000176_000051.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_e639b115481453e77349016575e01b43->dir_530b96b5c656eb30479af34adde28e10 [headlabel="1", labeldistance=1.5 headhref="dir_000111_000049.html" href="dir_000111_000049.html" color="steelblue1" fontcolor="steelblue1"];
+}

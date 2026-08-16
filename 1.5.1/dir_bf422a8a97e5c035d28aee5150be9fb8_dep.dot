@@ -1,0 +1,22 @@
+digraph "pico_stdlib/include/pico"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_9866feba74b381225b9b84f70cd6142a {
+    graph [ bgcolor="#f9d4db", pencolor="grey50", label="include", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_9866feba74b381225b9b84f70cd6142a.html",tooltip=""]
+  dir_bf422a8a97e5c035d28aee5150be9fb8 [label="pico", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_bf422a8a97e5c035d28aee5150be9fb8.html",tooltip=""];
+  }
+  dir_8ce2dea2c70b96bce3071180a232ce85 [label="pico_stdio", fillcolor="#f9d4db", color="red", style="filled", URL="dir_8ce2dea2c70b96bce3071180a232ce85.html",tooltip=""];
+  dir_adc179867a439eb9895cb87c8a61acd0 [label="hardware_gpio", fillcolor="#f9d4db", color="red", style="filled", URL="dir_adc179867a439eb9895cb87c8a61acd0.html",tooltip=""];
+  dir_cc740ddf7ebf14a28f7e7a6178d204e2 [label="pico_time", fillcolor="#f9d4db", color="red", style="filled", URL="dir_cc740ddf7ebf14a28f7e7a6178d204e2.html",tooltip=""];
+  dir_ee4ba4c32933fd9d1c9bce216e67756d [label="pico_base", fillcolor="#f9d4db", color="red", style="filled", URL="dir_ee4ba4c32933fd9d1c9bce216e67756d.html",tooltip=""];
+  dir_fa32484ddcfb739fabe101c20b70de5a [label="hardware_uart", fillcolor="#f9d4db", color="red", style="filled", URL="dir_fa32484ddcfb739fabe101c20b70de5a.html",tooltip=""];
+  dir_bf422a8a97e5c035d28aee5150be9fb8->dir_8ce2dea2c70b96bce3071180a232ce85 [headlabel="1", labeldistance=1.5 headhref="dir_000130_000188.html" href="dir_000130_000188.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_bf422a8a97e5c035d28aee5150be9fb8->dir_adc179867a439eb9895cb87c8a61acd0 [headlabel="1", labeldistance=1.5 headhref="dir_000130_000048.html" href="dir_000130_000048.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_bf422a8a97e5c035d28aee5150be9fb8->dir_cc740ddf7ebf14a28f7e7a6178d204e2 [headlabel="1", labeldistance=1.5 headhref="dir_000130_000195.html" href="dir_000130_000195.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_bf422a8a97e5c035d28aee5150be9fb8->dir_ee4ba4c32933fd9d1c9bce216e67756d [headlabel="1", labeldistance=1.5 headhref="dir_000130_000160.html" href="dir_000130_000160.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_bf422a8a97e5c035d28aee5150be9fb8->dir_fa32484ddcfb739fabe101c20b70de5a [headlabel="1", labeldistance=1.5 headhref="dir_000130_000061.html" href="dir_000130_000061.html" color="steelblue1" fontcolor="steelblue1"];
+}

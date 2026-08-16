@@ -1,0 +1,17 @@
+digraph "pico_bootsel_via_double_reset"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  dir_cdbccba43a759bcfa97aebc6812fae4c [label="pico_bootsel_via_double\l_reset", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_cdbccba43a759bcfa97aebc6812fae4c.html",tooltip=""];
+  dir_3dab16ea41ea245df7c2e3d74b6863f3 [label="pico_binary_info", fillcolor="#f9d4db", color="red", style="filled", URL="dir_3dab16ea41ea245df7c2e3d74b6863f3.html",tooltip=""];
+  dir_cc740ddf7ebf14a28f7e7a6178d204e2 [label="pico_time", fillcolor="#f9d4db", color="red", style="filled", URL="dir_cc740ddf7ebf14a28f7e7a6178d204e2.html",tooltip=""];
+  dir_ee4ba4c32933fd9d1c9bce216e67756d [label="pico_base", fillcolor="#f9d4db", color="red", style="filled", URL="dir_ee4ba4c32933fd9d1c9bce216e67756d.html",tooltip=""];
+  dir_fff3481d602476b324fe0f2e99114150 [label="pico_bootrom", fillcolor="#f9d4db", color="red", style="filled", URL="dir_fff3481d602476b324fe0f2e99114150.html",tooltip=""];
+  dir_cdbccba43a759bcfa97aebc6812fae4c->dir_3dab16ea41ea245df7c2e3d74b6863f3 [headlabel="1", labeldistance=1.5 headhref="dir_000165_000161.html" href="dir_000165_000161.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_cdbccba43a759bcfa97aebc6812fae4c->dir_cc740ddf7ebf14a28f7e7a6178d204e2 [headlabel="1", labeldistance=1.5 headhref="dir_000165_000195.html" href="dir_000165_000195.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_cdbccba43a759bcfa97aebc6812fae4c->dir_ee4ba4c32933fd9d1c9bce216e67756d [headlabel="1", labeldistance=1.5 headhref="dir_000165_000160.html" href="dir_000165_000160.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_cdbccba43a759bcfa97aebc6812fae4c->dir_fff3481d602476b324fe0f2e99114150 [headlabel="1", labeldistance=1.5 headhref="dir_000165_000164.html" href="dir_000165_000164.html" color="steelblue1" fontcolor="steelblue1"];
+}

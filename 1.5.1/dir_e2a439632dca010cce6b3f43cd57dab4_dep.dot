@@ -1,0 +1,17 @@
+digraph "pico_stdlib"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  dir_e2a439632dca010cce6b3f43cd57dab4 [label="pico_stdlib", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_e2a439632dca010cce6b3f43cd57dab4.html",tooltip=""];
+  dir_254ef4e2977de847e2030dceeab20b97 [label="pico_stdlib", fillcolor="#f9d4db", color="red", style="filled", URL="dir_254ef4e2977de847e2030dceeab20b97.html",tooltip=""];
+  dir_3dab16ea41ea245df7c2e3d74b6863f3 [label="pico_binary_info", fillcolor="#f9d4db", color="red", style="filled", URL="dir_3dab16ea41ea245df7c2e3d74b6863f3.html",tooltip=""];
+  dir_97488f0e7a446a9cf6de7001f5c5d08c [label="hardware_pll", fillcolor="#f9d4db", color="red", style="filled", URL="dir_97488f0e7a446a9cf6de7001f5c5d08c.html",tooltip=""];
+  dir_e2ab24579df028e26784018cb2829bf6 [label="hardware_clocks", fillcolor="#f9d4db", color="red", style="filled", URL="dir_e2ab24579df028e26784018cb2829bf6.html",tooltip=""];
+  dir_e2a439632dca010cce6b3f43cd57dab4->dir_254ef4e2977de847e2030dceeab20b97 [headlabel="1", labeldistance=1.5 headhref="dir_000193_000192.html" href="dir_000193_000192.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_e2a439632dca010cce6b3f43cd57dab4->dir_3dab16ea41ea245df7c2e3d74b6863f3 [headlabel="1", labeldistance=1.5 headhref="dir_000193_000161.html" href="dir_000193_000161.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_e2a439632dca010cce6b3f43cd57dab4->dir_97488f0e7a446a9cf6de7001f5c5d08c [headlabel="1", labeldistance=1.5 headhref="dir_000193_000053.html" href="dir_000193_000053.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_e2a439632dca010cce6b3f43cd57dab4->dir_e2ab24579df028e26784018cb2829bf6 [headlabel="1", labeldistance=1.5 headhref="dir_000193_000043.html" href="dir_000193_000043.html" color="steelblue1" fontcolor="steelblue1"];
+}
