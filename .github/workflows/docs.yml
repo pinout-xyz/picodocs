@@ -7,12 +7,12 @@ on:
     types: [created]
 
 env:
-  SDK_VERSION: "1.5.0"
+  SDK_VERSION: "2.3.0"
 
 jobs:
   build:
     name: Build Docs
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Install Deps
       if: runner.os == 'Linux'
@@ -20,12 +20,12 @@ jobs:
         sudo apt update && sudo apt install gcc-arm-none-eabi doxygen
   
     - name: Checkout PicoDocs
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         path: picodocs
 
     - name: Checkout Pico SDK
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         repository: raspberrypi/pico-sdk
         ref: ${{env.SDK_VERSION}}
@@ -44,13 +44,13 @@ jobs:
         cmake --build build --target docs -j 2
 
     - name: Upload As Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v7
       with:
         name: pico-sdk-${{env.SDK_VERSION}}-docs
         path: pico-sdk/build/docs/doxygen/html
 
     - name: Publish To Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: pico-sdk/build/docs/doxygen/html
