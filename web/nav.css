@@ -1,0 +1,33 @@
+.picodocs-nav {
+    margin-top: 10px;
+}
+
+.picodocs-nav-select {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 6px 8px;
+    max-width: 100%;
+}
+
+.picodocs-nav-select:hover {
+    border-color: #CA4F62;
+}
+
+.navigation-mobile .picodocs-nav {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 400px) {
+    .navigation-mobile .picodocs-nav-select {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+}

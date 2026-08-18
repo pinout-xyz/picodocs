@@ -126,6 +126,27 @@ jobs:
           echo '</html>'
         } > site/versions.html
 
+    - name: Inject Version Nav
+      shell: bash
+      run: |
+        versions=$(ls site | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -Vr)
+        latest=$(echo "$versions" | head -n 1)
+        {
+          printf 'const PICODOCS = {latest: "%s", rootPlatform: "rp2040", versions: [' "$latest"
+          for version in $versions; do
+            printf '{version: "%s", platforms: [' "$version"
+            for platform in $(ls "site/$version"); do
+              printf '"%s",' "$platform"
+            done
+            printf ']},'
+          done
+          printf ']};\n'
+          cat web/nav.js
+        } > site/picodocs-nav.js
+        cp web/nav.css site/picodocs-nav.css
+        find site -name '*.html' -not -path '*/search/*' -print0 | xargs -0 sed -i \
+          's#</head>#<link href="/picodocs-nav.css" rel="stylesheet" type="text/css"/><script src="/picodocs-nav.js" defer></script></head>#'
+
     - name: Publish To Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
