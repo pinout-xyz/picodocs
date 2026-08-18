@@ -16,14 +16,6 @@ jobs:
     - name: Checkout PicoDocs
       uses: actions/checkout@v7
 
-    # No arm-none-eabi-gcc: CMakeLists.txt points CMAKE_TOOLCHAIN_FILE at an empty file
-    # so the SDK keeps the runner's compiler. The docs target compiles no sources,
-    # and the HTML comes out byte-identical either way. apt's gcc-arm-none-eabi recommends
-    # its way to 580MB of downloads and 3.1GB unpacked.
-    - name: Install Doxygen
-      run: |
-        sudo apt update && sudo apt install -y --no-install-recommends doxygen
-
     - name: Checkout Pico SDK
       uses: actions/checkout@v7
       with:
@@ -31,10 +23,22 @@ jobs:
         path: pico-sdk
         fetch-depth: 0
 
+    - name: Plan Builds
+      id: plan
+      shell: bash
+      run: |
+        echo "key=$(python3 tools/build_docs.py --sdk pico-sdk --cache-key --doxygen-version)" >> "$GITHUB_OUTPUT"
+
+    - name: Restore Built Docs
+      uses: actions/cache@v6
+      with:
+        path: builds
+        key: docs-${{ steps.plan.outputs.key }}
+
     - name: Build Docs
       shell: bash
       run: |
-        python3 tools/build_docs.py --sdk pico-sdk --output builds --jobs 4 --keep-going
+        python3 tools/build_docs.py --sdk pico-sdk --output builds --jobs 4 --keep-going --reuse --doxygen-version
 
     - name: Assemble Site
       shell: bash
@@ -54,15 +58,19 @@ jobs:
     needs: build
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
+
     permissions:
       pages: write
       id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     concurrency:
       group: pages
       cancel-in-progress: false
+
     steps:
     - name: Publish To Pages
       id: deployment

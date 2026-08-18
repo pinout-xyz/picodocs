@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build the Pico SDK's Doxygen docs for every released version and platform.
 
-Versions come from the tags of a pico-sdk checkout.
-
-Each build lands in "<output>/<version>-<platform>", ready for assemble_site.py.
+Versions come from the tags of a pico-sdk checkout, so nothing here or in CI
+repeats the list. Each build lands in "<output>/<version>-<platform>", ready
+for assemble_site.py.
 
     git clone https://github.com/raspberrypi/pico-sdk
     python3 tools/build_docs.py --sdk pico-sdk --output builds
@@ -11,11 +11,14 @@ Each build lands in "<output>/<version>-<platform>", ready for assemble_site.py.
 
 import argparse
 import concurrent.futures
+import hashlib
 import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+import fetch_doxygen
 
 PROJECT = Path(__file__).resolve().parent.parent
 
@@ -25,9 +28,15 @@ RP2350_SINCE = (2, 0, 0)
 
 EXAMPLES_REPO = "https://github.com/raspberrypi/pico-examples"
 
+BUILD_INPUTS = ["tools/build_docs.py", "CMakeLists.txt", "cmake/pico_docs_toolchain.cmake"]
+
 
 def run(command, **kwargs):
     return subprocess.run(command, check=True, text=True, **kwargs)
+
+
+def version_key(version):
+    return tuple(int(part) for part in version.split("."))
 
 
 def released_versions(sdk, minimum):
@@ -36,14 +45,29 @@ def released_versions(sdk, minimum):
     return sorted((v for v in versions if version_key(v) >= version_key(minimum)), key=version_key)
 
 
-def version_key(version):
-    return tuple(int(part) for part in version.split("."))
-
-
 def platforms_for(version, platforms):
     if version_key(version) < RP2350_SINCE:
         return [platform for platform in platforms if platform == "rp2040"]
     return platforms
+
+
+def plan(args):
+    versions = args.versions or released_versions(args.sdk, args.min_version)
+    if not versions:
+        raise SystemExit(f"no release tags at or after {args.min_version} in {args.sdk}")
+    return [(version, platform)
+            for version in sorted(versions, key=version_key)
+            for platform in platforms_for(version, args.platforms)]
+
+
+def cache_key(targets, doxygen_version):
+    digest = hashlib.sha256()
+    digest.update(doxygen_version.encode())
+    for version, platform in targets:
+        digest.update(f"{version}-{platform}".encode())
+    for name in BUILD_INPUTS:
+        digest.update((PROJECT / name).read_bytes())
+    return digest.hexdigest()[:16]
 
 
 def prepare_worktree(sdk, work, version):
@@ -61,17 +85,21 @@ def prepare_examples(work):
     return examples
 
 
-def build(worktree, examples, work, output, version, platform):
+def build(worktree, examples, work, output, doxygen, version, platform):
     name = f"{version}-{platform}"
     build_dir = work / "build" / name
     log = work / "log" / f"{name}.log"
     log.parent.mkdir(parents=True, exist_ok=True)
 
+    configure = ["cmake", "-S", str(PROJECT), "-B", str(build_dir),
+                 f"-DPICO_SDK_PATH={worktree.resolve()}",
+                 f"-DPICO_EXAMPLES_PATH={examples.resolve()}",
+                 f"-DPICO_PLATFORM={platform}"]
+    if doxygen:
+        configure.append(f"-DDOXYGEN_EXECUTABLE={Path(doxygen).resolve()}")
+
     with log.open("w") as log_file:
-        run(["cmake", "-S", str(PROJECT), "-B", str(build_dir),
-             f"-DPICO_SDK_PATH={worktree.resolve()}",
-             f"-DPICO_EXAMPLES_PATH={examples.resolve()}",
-             f"-DPICO_PLATFORM={platform}"], stdout=log_file, stderr=subprocess.STDOUT)
+        run(configure, stdout=log_file, stderr=subprocess.STDOUT)
 
         doxyfile = build_dir / "pico-sdk" / "docs" / "Doxyfile"
         with doxyfile.open("a") as handle:
@@ -91,6 +119,14 @@ def build(worktree, examples, work, output, version, platform):
     return name
 
 
+def prune(output, targets):
+    wanted = {f"{version}-{platform}" for version, platform in targets}
+    for path in sorted(output.iterdir()):
+        if path.is_dir() and path.name not in wanted:
+            print(f"dropping stale {path.name}", file=sys.stderr)
+            shutil.rmtree(path)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -102,31 +138,53 @@ def main():
     parser.add_argument("--platforms", nargs="+", default=["rp2040", "rp2350"])
     parser.add_argument("--jobs", type=int, default=4, help="builds to run at once")
     parser.add_argument("--keep-going", action="store_true", help="report failures at the end")
+    parser.add_argument("--reuse", action="store_true",
+                        help="keep builds already in the output, drop ones no longer wanted")
+    parser.add_argument("--doxygen", type=Path, help="doxygen to build with (default: the one on PATH)")
+    parser.add_argument("--doxygen-version", nargs="?", const=fetch_doxygen.VERSION,
+                        help=f"fetch a pinned doxygen instead, default {fetch_doxygen.VERSION}")
+    parser.add_argument("--list", action="store_true", help="print the planned builds and stop")
+    parser.add_argument("--cache-key", action="store_true", help="print a key for caching the output")
     args = parser.parse_args()
 
-    versions = args.versions or released_versions(args.sdk, args.min_version)
-    if not versions:
-        raise SystemExit(f"no release tags at or after {args.min_version} in {args.sdk}")
+    targets = plan(args)
+
+    if args.list:
+        for version, platform in targets:
+            print(f"{version}-{platform}")
+        return
+
+    if args.cache_key:
+        doxygen = args.doxygen_version or (str(args.doxygen) if args.doxygen else "path")
+        print(f"{doxygen}-{cache_key(targets, doxygen)}")
+        return
 
     work = args.work or args.output.parent / ".picodocs"
     work.mkdir(parents=True, exist_ok=True)
     args.output.mkdir(parents=True, exist_ok=True)
 
-    examples = prepare_examples(work)
-    targets = []
-    for version in versions:
-        worktree = prepare_worktree(args.sdk, work, version)
-        for platform in platforms_for(version, args.platforms):
-            targets.append((worktree, version, platform))
+    doxygen = args.doxygen
+    if args.doxygen_version and not doxygen:
+        doxygen = fetch_doxygen.ensure(args.doxygen_version, work / "doxygen")
 
-    print(f"building {len(targets)} docs trees from {len(versions)} versions", file=sys.stderr)
+    if args.reuse:
+        prune(args.output, targets)
+        pending = [target for target in targets if not (args.output / f"{target[0]}-{target[1]}").is_dir()]
+        print(f"reusing {len(targets) - len(pending)} of {len(targets)} builds", file=sys.stderr)
+    else:
+        pending = targets
+
+    examples = prepare_examples(work) if pending else None
+    worktrees = {version: prepare_worktree(args.sdk, work, version) for version, _ in pending}
+
+    print(f"building {len(pending)} docs trees", file=sys.stderr)
 
     failures = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {
-            pool.submit(build, worktree, examples, work, args.output, version, platform):
-                f"{version}-{platform}"
-            for worktree, version, platform in targets
+            pool.submit(build, worktrees[version], examples, work, args.output, doxygen,
+                        version, platform): f"{version}-{platform}"
+            for version, platform in pending
         }
         for future in concurrent.futures.as_completed(futures):
             name = futures[future]
@@ -140,7 +198,7 @@ def main():
                     raise SystemExit(1)
 
     if failures:
-        raise SystemExit(f"{len(failures)} of {len(targets)} builds failed")
+        raise SystemExit(f"{len(failures)} of {len(pending)} builds failed")
 
 
 if __name__ == "__main__":
