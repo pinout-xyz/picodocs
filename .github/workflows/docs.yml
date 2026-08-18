@@ -10,24 +10,8 @@ on:
 
 jobs:
   build:
-    name: Build ${{matrix.sdk_version}} ${{matrix.platform}} Docs
+    name: Build Docs
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        sdk_version:
-          - "2.3.0"
-          - "2.2.0"
-          - "2.1.1"
-          - "2.1.0"
-          - "2.0.0"
-          - "1.5.1"
-        platform:
-          - "rp2040"
-          - "rp2350"
-        exclude:
-          - sdk_version: "1.5.1"
-            platform: "rp2350"
     steps:
     - name: Checkout PicoDocs
       uses: actions/checkout@v7
@@ -35,7 +19,7 @@ jobs:
     # No arm-none-eabi-gcc: CMakeLists.txt points CMAKE_TOOLCHAIN_FILE at an empty file
     # so the SDK keeps the runner's compiler. The docs target compiles no sources,
     # and the HTML comes out byte-identical either way. apt's gcc-arm-none-eabi recommends
-    # its way to 580MB of downloads and 3.1GB unpacked... eleven times over this matrix.
+    # its way to 580MB of downloads and 3.1GB unpacked.
     - name: Install Doxygen
       run: |
         sudo apt update && sudo apt install -y --no-install-recommends doxygen
@@ -44,121 +28,18 @@ jobs:
       uses: actions/checkout@v7
       with:
         repository: raspberrypi/pico-sdk
-        ref: ${{matrix.sdk_version}}
         path: pico-sdk
+        fetch-depth: 0
 
-    - name: Configure Docs Build
+    - name: Build Docs
       shell: bash
       run: |
-        cmake -S . -B build -DPICO_SDK_PATH=pico-sdk -DPICO_PLATFORM=${{matrix.platform}}
-
-    - name: Disable Doxygen Dark Mode
-      shell: bash
-      run: |
-        echo "HTML_COLORSTYLE = LIGHT" >> build/pico-sdk/docs/Doxyfile
-
-    - name: Build Pico SDK Docs
-      shell: bash
-      run: |
-        cmake --build build --target docs -j 2
-
-    - name: Upload As Artifact
-      uses: actions/upload-artifact@v7
-      with:
-        name: pico-sdk-${{matrix.sdk_version}}-${{matrix.platform}}-docs
-        path: build/pico-sdk/docs/doxygen/html
-
-  publish:
-    name: Publish Docs
-    needs: build
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    steps:
-    - name: Checkout PicoDocs
-      uses: actions/checkout@v7
-
-    - name: Download Docs
-      uses: actions/download-artifact@v8
-      with:
-        path: artifacts
-        pattern: pico-sdk-*-docs
+        python3 tools/build_docs.py --sdk pico-sdk --output builds --jobs 4 --keep-going
 
     - name: Assemble Site
       shell: bash
       run: |
-        builds=$(ls artifacts | sed 's/^pico-sdk-//; s/-docs$//')
-        versions=$(echo "$builds" | sed 's/-[^-]*$//' | sort -Vru)
-        latest=$(echo "$versions" | head -n 1)
-        mkdir -p site
-        cp -r "artifacts/pico-sdk-$latest-rp2040-docs/." site/
-        for build in $builds; do
-          mkdir -p "site/${build%-*}"
-          cp -r "artifacts/pico-sdk-$build-docs" "site/${build%-*}/${build##*-}"
-        done
-        {
-          echo '<!DOCTYPE html>'
-          echo '<html lang="en">'
-          echo '<head>'
-          echo '<meta charset="utf-8">'
-          echo '<meta name="viewport" content="width=device-width, initial-scale=1">'
-          echo '<title>Pico SDK Documentation</title>'
-          echo '</head>'
-          echo '<body>'
-          echo '<h1>Pico SDK Documentation</h1>'
-          echo '<ul>'
-          for version in $versions; do
-            echo "<li>$version"
-            echo '<ul>'
-            for build in $builds; do
-              case "$build" in
-                "$version-"*)
-                  platform=${build##*-}
-                  if [ "$version" = "$latest" ] && [ "$platform" = "rp2040" ]; then
-                    echo "<li><a href=\"/$version/$platform/\">$platform</a> (also at <a href=\"/\">/</a>)</li>"
-                  else
-                    echo "<li><a href=\"/$version/$platform/\">$platform</a></li>"
-                  fi
-                  ;;
-              esac
-            done
-            echo '</ul>'
-            echo '</li>'
-          done
-          echo '</ul>'
-          echo '</body>'
-          echo '</html>'
-        } > site/versions.html
-
-    - name: Inject Version Nav
-      shell: bash
-      run: |
-        versions=$(ls site | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -Vr)
-        latest=$(echo "$versions" | head -n 1)
-        {
-          printf 'const PICODOCS = {latest: "%s", rootPlatform: "rp2040", versions: [' "$latest"
-          for version in $versions; do
-            printf '{version: "%s", platforms: [' "$version"
-            for platform in $(ls "site/$version"); do
-              printf '"%s",' "$platform"
-            done
-            printf ']},'
-          done
-          printf ']};\n'
-          cat web/nav.js
-        } > site/picodocs-nav.js
-        cp web/nav.css site/picodocs-nav.css
-        find site -name '*.html' -not -path '*/search/*' -print0 | xargs -0 sed -i \
-          's#</head>#<link href="/picodocs-nav.css" rel="stylesheet" type="text/css"/><script src="/picodocs-nav.js" defer></script></head>#'
+        python3 tools/assemble_site.py --artifacts builds site
 
     - name: Configure Pages
       uses: actions/configure-pages@v6
@@ -168,6 +49,21 @@ jobs:
       with:
         path: site
 
+  deploy:
+    name: Publish Docs
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
     - name: Publish To Pages
       id: deployment
       uses: actions/deploy-pages@v5
