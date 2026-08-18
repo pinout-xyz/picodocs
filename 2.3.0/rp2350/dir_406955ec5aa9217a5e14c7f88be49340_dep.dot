@@ -1,0 +1,14 @@
+digraph "include/pico/binary_info"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_95efa077cf14a4cd28caa4bcad11a067 {
+    graph [ bgcolor="#f9d4db", pencolor="grey50", label="pico", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_95efa077cf14a4cd28caa4bcad11a067.html",tooltip=""]
+  dir_406955ec5aa9217a5e14c7f88be49340 [label="binary_info", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_406955ec5aa9217a5e14c7f88be49340.html",tooltip=""];
+  }
+  dir_d33924d076471b85b24f43e84b5c33ab [label="include", fillcolor="#f9d4db", color="red", style="filled", URL="dir_d33924d076471b85b24f43e84b5c33ab.html",tooltip=""];
+  dir_406955ec5aa9217a5e14c7f88be49340->dir_d33924d076471b85b24f43e84b5c33ab [headlabel="1", labeldistance=1.5 headhref="dir_000002_000058.html" href="dir_000002_000058.html" color="steelblue1" fontcolor="steelblue1"];
+}

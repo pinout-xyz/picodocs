@@ -1,0 +1,12 @@
+digraph "include/pico/platform"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_fbb51d09aba329e225b36d011cf7b0ce {
+    graph [ bgcolor="#f9d4db", pencolor="grey50", label="pico", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_fbb51d09aba329e225b36d011cf7b0ce.html",tooltip=""]
+  dir_a49cbbfbde2535bd74b40b676d5f0387 [label="platform", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_a49cbbfbde2535bd74b40b676d5f0387.html",tooltip=""];
+  }
+}

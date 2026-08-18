@@ -1,0 +1,14 @@
+digraph "SEGGER/RTT"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_43b5af4f6cc66ce726663a5288a3fff0 {
+    graph [ bgcolor="#f9d4db", pencolor="grey25", label="SEGGER", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_43b5af4f6cc66ce726663a5288a3fff0.html",tooltip=""]
+  dir_d97998a21162dae6c488d13ae5bc7bff [label="RTT", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_d97998a21162dae6c488d13ae5bc7bff.html",tooltip=""];
+  }
+  dir_e7cdf6d6f9e42bb0e7319916154f6f82 [label="include", fillcolor="#f9d4db", color="red", style="filled", URL="dir_e7cdf6d6f9e42bb0e7319916154f6f82.html",tooltip=""];
+  dir_d97998a21162dae6c488d13ae5bc7bff->dir_e7cdf6d6f9e42bb0e7319916154f6f82 [headlabel="1", labeldistance=1.5 headhref="dir_000188_000060.html" href="dir_000188_000060.html" color="steelblue1" fontcolor="steelblue1"];
+}

@@ -1,0 +1,13 @@
+digraph "cybt_shared_bus"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  dir_b22cccd7adea5071251afb5abbaa795d [label="cybt_shared_bus", fillcolor="#f9d4db", color="grey25", style="filled,bold", URL="dir_b22cccd7adea5071251afb5abbaa795d.html",tooltip=""];
+  dir_1cc93ecbca319283da26424dfd3c0fa0 [label="include", fillcolor="#f9d4db", color="red", style="filled", URL="dir_1cc93ecbca319283da26424dfd3c0fa0.html",tooltip=""];
+  dir_e7cdf6d6f9e42bb0e7319916154f6f82 [label="include", fillcolor="#f9d4db", color="red", style="filled", URL="dir_e7cdf6d6f9e42bb0e7319916154f6f82.html",tooltip=""];
+  dir_b22cccd7adea5071251afb5abbaa795d->dir_1cc93ecbca319283da26424dfd3c0fa0 [headlabel="2", labeldistance=1.5 headhref="dir_000012_000137.html" href="dir_000012_000137.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_b22cccd7adea5071251afb5abbaa795d->dir_e7cdf6d6f9e42bb0e7319916154f6f82 [headlabel="1", labeldistance=1.5 headhref="dir_000012_000062.html" href="dir_000012_000062.html" color="steelblue1" fontcolor="steelblue1"];
+}
