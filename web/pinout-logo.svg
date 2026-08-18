@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" role="img" aria-label="Pinout.xyz">
+<rect width="90" height="90" fill="#000000"/>
+<rect x="2" y="2" width="20" height="20" fill="#333333"/>
+<rect x="24" y="2" width="20" height="20" fill="#333333"/>
+<rect x="46" y="2" width="20" height="20" fill="#62DE14"/>
+<rect x="68" y="2" width="20" height="20" fill="#333333"/>
+<rect x="2" y="24" width="20" height="20" fill="#E60438"/>
+<rect x="24" y="24" width="20" height="20" fill="#CD0634"/>
+<rect x="46" y="24" width="20" height="20" fill="#3A830C"/>
+<rect x="68" y="24" width="20" height="20" fill="#50B811"/>
+<rect x="2" y="46" width="20" height="20" fill="#CD0634"/>
+<rect x="24" y="46" width="20" height="20" fill="#CD0634"/>
+<rect x="46" y="46" width="20" height="20" fill="#CD0634"/>
+<rect x="68" y="46" width="20" height="20" fill="#333333"/>
+<rect x="2" y="68" width="20" height="20" fill="#AC032A"/>
+<rect x="24" y="68" width="20" height="20" fill="#AC032A"/>
+<rect x="46" y="68" width="20" height="20" fill="#AC032A"/>
+<rect x="68" y="68" width="20" height="20" fill="#333333"/>
+</svg>

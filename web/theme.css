@@ -1,0 +1,9 @@
+#main-menu-state,
+.main-menu-btn {
+    display: none;
+}
+
+#MSearchBox input[type=text] {
+    width: auto;
+    padding-left: 5px;
+}

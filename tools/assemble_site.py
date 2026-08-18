@@ -23,13 +23,18 @@ ASSETS = [
     ("nav.js", "picodocs-nav.js"),
     ("search.css", "picodocs-search.css"),
     ("search.js", "picodocs-search.js"),
+    ("theme.css", "picodocs-theme.css"),
+    ("theme.js", "picodocs-theme.js"),
+    ("pinout-logo.svg", "picodocs-logo.svg"),
 ]
 
 TAGS = (
     '<link href="/picodocs-nav.css" rel="stylesheet" type="text/css"/>'
     '<link href="/picodocs-search.css" rel="stylesheet" type="text/css"/>'
+    '<link href="/picodocs-theme.css" rel="stylesheet" type="text/css"/>'
     '<script src="/picodocs-nav.js" defer></script>'
     '<script src="/picodocs-search.js" defer></script>'
+    '<script src="/picodocs-theme.js" defer></script>'
 )
 
 
