@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{matrix.sdk_version}} Docs
+    name: Build ${{matrix.sdk_version}} ${{matrix.platform}} Docs
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -20,6 +20,12 @@ jobs:
           - "2.1.0"
           - "2.0.0"
           - "1.5.1"
+        platform:
+          - "rp2040"
+          - "rp2350"
+        exclude:
+          - sdk_version: "1.5.1"
+            platform: "rp2350"
     steps:
     - name: Install Deps
       run: |
@@ -36,7 +42,7 @@ jobs:
       shell: bash
       working-directory: pico-sdk
       run: |
-        cmake -S . -B build -DPICO_BUILD_DOCS=1
+        cmake -S . -B build -DPICO_BUILD_DOCS=1 -DPICO_PLATFORM=${{matrix.platform}}
 
     - name: Disable Doxygen Dark Mode
       shell: bash
@@ -53,7 +59,7 @@ jobs:
     - name: Upload As Artifact
       uses: actions/upload-artifact@v7
       with:
-        name: pico-sdk-${{matrix.sdk_version}}-docs
+        name: pico-sdk-${{matrix.sdk_version}}-${{matrix.platform}}-docs
         path: pico-sdk/build/docs/doxygen/html
 
   publish:
@@ -73,12 +79,14 @@ jobs:
     - name: Assemble Site
       shell: bash
       run: |
-        versions=$(ls artifacts | sed 's/^pico-sdk-//; s/-docs$//' | sort -Vr)
+        builds=$(ls artifacts | sed 's/^pico-sdk-//; s/-docs$//')
+        versions=$(echo "$builds" | sed 's/-[^-]*$//' | sort -Vru)
         latest=$(echo "$versions" | head -n 1)
         mkdir -p site
-        cp -r "artifacts/pico-sdk-$latest-docs/." site/
-        for version in $versions; do
-          cp -r "artifacts/pico-sdk-$version-docs" "site/$version"
+        cp -r "artifacts/pico-sdk-$latest-rp2040-docs/." site/
+        for build in $builds; do
+          mkdir -p "site/${build%-*}"
+          cp -r "artifacts/pico-sdk-$build-docs" "site/${build%-*}/${build##*-}"
         done
         {
           echo '<!DOCTYPE html>'
@@ -92,11 +100,22 @@ jobs:
           echo '<h1>Pico SDK Documentation</h1>'
           echo '<ul>'
           for version in $versions; do
-            if [ "$version" = "$latest" ]; then
-              echo "<li><a href=\"/$version/\">$version</a> (latest, also at <a href=\"/\">/</a>)</li>"
-            else
-              echo "<li><a href=\"/$version/\">$version</a></li>"
-            fi
+            echo "<li>$version"
+            echo '<ul>'
+            for build in $builds; do
+              case "$build" in
+                "$version-"*)
+                  platform=${build##*-}
+                  if [ "$version" = "$latest" ] && [ "$platform" = "rp2040" ]; then
+                    echo "<li><a href=\"/$version/$platform/\">$platform</a> (also at <a href=\"/\">/</a>)</li>"
+                  else
+                    echo "<li><a href=\"/$version/$platform/\">$platform</a></li>"
+                  fi
+                  ;;
+              esac
+            done
+            echo '</ul>'
+            echo '</li>'
           done
           echo '</ul>'
           echo '</body>'
