@@ -2,9 +2,11 @@ name: PicoDocs
 
 on:
   push:
+    branches: [main]
   pull_request:
   release:
     types: [created]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -69,7 +71,18 @@ jobs:
   publish:
     name: Publish Docs
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     steps:
     - name: Checkout PicoDocs
       uses: actions/checkout@v7
@@ -147,9 +160,14 @@ jobs:
         find site -name '*.html' -not -path '*/search/*' -print0 | xargs -0 sed -i \
           's#</head>#<link href="/picodocs-nav.css" rel="stylesheet" type="text/css"/><script src="/picodocs-nav.js" defer></script></head>#'
 
-    - name: Publish To Pages
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Configure Pages
+      uses: actions/configure-pages@v6
+
+    - name: Upload Site
+      uses: actions/upload-pages-artifact@v5
       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: site
-          cname: picodocs.pinout.xyz
+        path: site
+
+    - name: Publish To Pages
+      id: deployment
+      uses: actions/deploy-pages@v5
