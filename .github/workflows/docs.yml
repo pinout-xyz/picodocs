@@ -27,9 +27,16 @@ jobs:
           - sdk_version: "1.5.1"
             platform: "rp2350"
     steps:
-    - name: Install Deps
+    - name: Checkout PicoDocs
+      uses: actions/checkout@v7
+
+    # No arm-none-eabi-gcc: CMakeLists.txt points CMAKE_TOOLCHAIN_FILE at an empty file
+    # so the SDK keeps the runner's compiler. The docs target compiles no sources,
+    # and the HTML comes out byte-identical either way. apt's gcc-arm-none-eabi recommends
+    # its way to 580MB of downloads and 3.1GB unpacked... eleven times over this matrix.
+    - name: Install Doxygen
       run: |
-        sudo apt update && sudo apt install -y gcc-arm-none-eabi doxygen
+        sudo apt update && sudo apt install -y --no-install-recommends doxygen
 
     - name: Checkout Pico SDK
       uses: actions/checkout@v7
@@ -38,21 +45,18 @@ jobs:
         ref: ${{matrix.sdk_version}}
         path: pico-sdk
 
-    - name: Configure Pico SDK
+    - name: Configure Docs Build
       shell: bash
-      working-directory: pico-sdk
       run: |
-        cmake -S . -B build -DPICO_BUILD_DOCS=1 -DPICO_PLATFORM=${{matrix.platform}}
+        cmake -S . -B build -DPICO_SDK_PATH=pico-sdk -DPICO_PLATFORM=${{matrix.platform}}
 
     - name: Disable Doxygen Dark Mode
       shell: bash
-      working-directory: pico-sdk
       run: |
-        echo "HTML_COLORSTYLE = LIGHT" >> build/docs/Doxyfile
+        echo "HTML_COLORSTYLE = LIGHT" >> build/pico-sdk/docs/Doxyfile
 
     - name: Build Pico SDK Docs
       shell: bash
-      working-directory: pico-sdk
       run: |
         cmake --build build --target docs -j 2
 
@@ -60,7 +64,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: pico-sdk-${{matrix.sdk_version}}-${{matrix.platform}}-docs
-        path: pico-sdk/build/docs/doxygen/html
+        path: build/pico-sdk/docs/doxygen/html
 
   publish:
     name: Publish Docs
